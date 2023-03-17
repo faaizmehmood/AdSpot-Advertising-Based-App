@@ -1,3 +1,4 @@
+
 # OSX
 #
 .DS_Store
@@ -59,3 +60,27 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+
+//
+.buckconfig
+.bundle/
+        .eslintrc.js
+        .flowconfig
+        .gitignore
+        .prettierrc.js
+        .ruby-version
+        .watchmanconfig
+        App.js
+        Gemfile
+        Gemfile.lock
+        __tests__/
+        android/
+        app.json
+        babel.config.js
+        index.js
+        ios/
+        metro.config.js
+        package.json
+        react-native.config.js
+        src/
+        yarn.lock

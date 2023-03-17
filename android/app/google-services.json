@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1090495000411",
+    "project_id": "chefio-967cd",
+    "storage_bucket": "chefio-967cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090495000411:android:8604de693b53dcf90bb47e",
+        "android_client_info": {
+          "package_name": "com.adspot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090495000411-lqelsmrmpknpap2uo2kdppq28qnau07b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhpFL2OEWBlSQ7kW63pshkFp9tKGk6mMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090495000411-lqelsmrmpknpap2uo2kdppq28qnau07b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
