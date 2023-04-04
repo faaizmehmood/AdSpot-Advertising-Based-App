@@ -6,9 +6,9 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Images,
   ImageBackground,
   Platform,
+  Image,
   Alert,
 } from 'react-native';
 import {
@@ -20,8 +20,13 @@ import {images} from '../assets/images';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ImagePicker from 'react-native-image-crop-picker';
 import {androidCameraPermission} from './Permission';
+import storage from '@react-native-firebase/storage';
 
 const PremiumPkg = () => {
+  const [image, setImage] = React.useState(null);
+  const [video, setVideo] = React.useState(null);
+  const [uploading, setUploading] = React.useState(false);
+
   const onSelectImg = async () => {
     const permissionStatus = await androidCameraPermission();
     if (permissionStatus || Platform.OS === 'android') {
@@ -38,17 +43,45 @@ const PremiumPkg = () => {
       mediaType: 'video',
     }).then(video => {
       console.log(video);
+      const videoUri = Platform.OS === 'android' ? video.path : video.sourceURL;
+      setVideo(videoUri);
     });
   };
 
   const onCameraGallery = () => {
     ImagePicker.openPicker({
-      width: 300,
-      height: 400,
+      width: 1200,
+      height: 780,
       cropping: false,
     }).then(image => {
       console.log(image);
+      const imageUri = Platform.OS === 'android' ? image.path : image.sourceURL;
+      setImage(imageUri);
     });
+  };
+
+  const uploadToFirebase = async () => {
+    const uploadUriImage = image;
+    const uploadUriVideo = video;
+    let fileNameImage = uploadUriImage.substring(
+      uploadUriImage.lastIndexOf('/') + 1,
+    );
+    // let fileNameVideo = uploadUriVideo.substring(
+    //   uploadUriVideo.lastIndexOf('/') + 1,
+    // );
+    setUploading(true);
+    try {
+      // await storage().ref(fileNameVideo).putFile(uploadUriVideo);
+      await storage().ref(fileNameImage).putFile(uploadUriImage);
+      setUploading(false);
+      Alert.alert('Image uploaded', 'Your Image has been uploaded sucessfully');
+    } catch (e) {
+      setUploading(false);
+      // Alert.alert('Video uploaded', 'Your Video has been uploaded sucessfully');
+      console.log(e);
+    }
+    setImage(null);
+    // setVideo(null);
   };
 
   return (
@@ -61,7 +94,7 @@ const PremiumPkg = () => {
             <MaterialIcons
               name="category"
               size={35}
-              style={{color: 'red', marginHorizental: responsiveWidth(2)}}
+              style={{color: 'red', marginHorizontal: responsiveWidth(2)}}
             />
             <Text style={styles.homeText}>Premium Categories</Text>
           </View>
@@ -76,11 +109,12 @@ const PremiumPkg = () => {
           </View>
           <TouchableOpacity style={styles.pkgContainer} onPress={onSelectImg}>
             <Text style={styles.pkgText}>Upload Picture</Text>
+            {image !== null ? <Image source={{uri: image}} /> : null}
+            {/* {video !== null ? <Image source={{uri: video}} /> : null} */}
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.nextContainer}
-            // onPress={onGoToSelectPkgScreen}
-          >
+            onPress={uploadToFirebase}>
             <Text style={styles.nextText}>Next</Text>
           </TouchableOpacity>
         </ImageBackground>
