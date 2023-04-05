@@ -6,9 +6,10 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Images,
+  Image,
   ImageBackground,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import {
   responsiveWidth,
@@ -24,14 +25,14 @@ import storage from '@react-native-firebase/storage';
 const SpecialPkg = () => {
   const [image, setImage] = React.useState(null);
   const [video, setVideo] = React.useState(null);
-  const [uploading, setUploading] = React.useState(false);
+  const [loadingIndicator, setLoadingIndicator] = React.useState(false);
 
   const onSelectImg = async () => {
     const permissionStatus = await androidCameraPermission();
     if (permissionStatus || Platform.OS === 'android') {
       Alert.alert('Alert', 'Choose an option', [
         {text: 'Cancel', onPress: () => {}},
-        {text: 'Select Video', onPress: onVideogallary},
+        // {text: 'Select Video', onPress: onVideogallary},
         {text: 'Select Picture', onPress: onCameraGallery},
       ]);
     }
@@ -65,14 +66,16 @@ const SpecialPkg = () => {
     let fileNameImage = uploadUriImage.substring(
       uploadUriImage.lastIndexOf('/') + 1,
     );
-    setUploading(true);
+    setLoadingIndicator(true);
     try {
       // await storage().ref(fileNameVideo).putFile(uploadUriVideo);
       await storage().ref(fileNameImage).putFile(uploadUriImage);
-      setUploading(false);
-      Alert.alert('Image uploaded', 'Your Image has been uploaded sucessfully');
+      setLoadingIndicator(false);
+      Alert.alert(
+        'Image uploaded',
+        'Your Image has been uploaded sucessfully.',
+      );
     } catch (e) {
-      setUploading(false);
       // Alert.alert('Video uploaded', 'Your Video has been uploaded sucessfully');
       console.log(e);
     }
@@ -110,6 +113,13 @@ const SpecialPkg = () => {
             style={styles.nextContainer}
             onPress={uploadToFirebase}>
             <Text style={styles.nextText}>Next</Text>
+            {loadingIndicator ? (
+              <ActivityIndicator
+                size={responsiveWidth(7)}
+                color="#fb246b"
+                style={{marginLeft: responsiveWidth(2)}}
+              />
+            ) : null}
           </TouchableOpacity>
         </ImageBackground>
       </ScrollView>
