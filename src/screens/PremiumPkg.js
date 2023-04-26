@@ -34,7 +34,7 @@ const PremiumPkg = () => {
       Alert.alert('Alert', 'Choose an option', [
         {text: 'Cancel', onPress: () => {}},
         // {text: 'Select Video', onPress: onVideogallary},
-        {text: 'Select Picture', onPress: onCameraGallery},
+        {text: 'Select Picture / Video', onPress: onCameraGallery},
       ]);
     }
   };
@@ -53,7 +53,7 @@ const PremiumPkg = () => {
     ImagePicker.openPicker({
       width: 1200,
       height: 780,
-      cropping: false,
+      // multiple:true
     }).then(image => {
       console.log(image);
       const imageUri = Platform.OS === 'android' ? image.path : image.sourceURL;
@@ -67,22 +67,21 @@ const PremiumPkg = () => {
     let fileNameImage = uploadUriImage.substring(
       uploadUriImage.lastIndexOf('/') + 1,
     );
-    // let fileNameVideo = uploadUriVideo.substring(
-    //   uploadUriVideo.lastIndexOf('/') + 1,
-    // );
     setLoadingIndicator(true);
     try {
       // await storage().ref(fileNameVideo).putFile(uploadUriVideo);
       await storage().ref(fileNameImage).putFile(uploadUriImage);
-      setLoadingIndicator(false);
       Alert.alert(
         'Image uploaded',
         'Your Image has been uploaded sucessfully.',
       );
+      setLoadingIndicator(false);
     } catch (e) {
       // Alert.alert('Video uploaded', 'Your Video has been uploaded sucessfully');
       console.log(e);
     }
+    setImage(null);
+
     setImage(null);
     // setVideo(null);
   };

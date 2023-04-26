@@ -243,7 +243,7 @@ const SignIn = props => {
                 ) : null}
               </TouchableOpacity>
               <Text style={styles.betweenText}>Or Continue with</Text>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 style={[styles.buttonContainer, styles.googleTextContainer]}
                 onPress={onGoToSignUpScreen}>
                 <MaterialIcon
@@ -253,7 +253,7 @@ const SignIn = props => {
                   color="white"
                 />
                 <Text style={styles.loginText}>Login as Admin</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <View style={styles.lastTextContainer}>
                 <Text style={styles.dontAccountText}>
                   Don't have any account?

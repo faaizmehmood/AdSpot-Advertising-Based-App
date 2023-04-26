@@ -33,7 +33,7 @@ const NormalPkg = () => {
       Alert.alert('Alert', 'Choose an option', [
         {text: 'Cancel', onPress: () => {}},
         // {text: 'Select Video', onPress: onVideogallary},
-        {text: 'Select Picture', onPress: onCameraGallery},
+        {text: 'Select Picture / Video', onPress: onCameraGallery},
       ]);
     }
   };
