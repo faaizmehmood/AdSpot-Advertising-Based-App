@@ -9,7 +9,6 @@ import {
   PasswordRecovery,
   Verification,
   NewPassword,
-  SelectPkg,
 } from '../screens';
 import {AuthContext} from '../context/AuthContext';
 import MainNavigator from './MainNavigator';

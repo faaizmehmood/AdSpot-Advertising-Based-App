@@ -6,7 +6,6 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
-  TextInput,
   ImageBackground,
 } from 'react-native';
 import {
@@ -50,6 +49,9 @@ const Home = props => {
               />
               <Text style={styles.homeText}>Home</Text>
             </View>
+            <Text style={styles.DiscriptionText}>
+              Select your Choice to post your Ad
+            </Text>
             <TouchableOpacity
               style={styles.pkgContainer}
               onPress={onGoToSelectPkgScreen}>
@@ -62,14 +64,13 @@ const Home = props => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.pkgContainer}
-              // onPress={onGoToSignUpScreen}
-            >
+              onPress={onGoToSelectPkgScreen}>
               <FeatherIcon
                 name="package"
                 size={25}
                 style={{color: 'white', marginHorizontal: responsiveWidth(2)}}
               />
-              <Text style={styles.pkgText}>Create Package</Text>
+              <Text style={styles.pkgText}>Show Package</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
@@ -119,8 +120,16 @@ const styles = StyleSheet.create({
   parentView: {
     flexDirection: 'row',
     // paddingTop: responsiveHeight(3),
-    marginVertical: responsiveHeight(18),
+    marginTop: responsiveHeight(18),
+    marginBottom: responsiveHeight(3),
     justifyContent: 'center',
+  },
+  DiscriptionText: {
+    color: 'white',
+    fontFamily: 'Inter-Medium',
+    textAlign: 'center',
+    fontSize: responsiveFontSize(2),
+    marginBottom: responsiveHeight(15),
   },
   homeText: {
     color: 'white',

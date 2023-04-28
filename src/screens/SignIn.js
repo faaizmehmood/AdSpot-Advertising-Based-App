@@ -17,7 +17,6 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import FontIcon from 'react-native-vector-icons/Fontisto';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
 import {routeNames} from '../navigation/config';

@@ -12,6 +12,10 @@ import PremiumPkg from './PremiumPkg';
 import ClassicPkg from './ClassicPkg';
 import NormalPkg from './NormalPkg';
 import SpecialPkg from './SpecialPkg';
+import PremiumSummary from './Premium_Summary';
+import ClassicSummary from './Classic_Summary';
+import NormalSummary from './Normal_Summary';
+import SpecialSummary from './Special_Summary';
 
 export {
   Splash,
@@ -28,4 +32,8 @@ export {
   ClassicPkg,
   NormalPkg,
   SpecialPkg,
+  PremiumSummary,
+  ClassicSummary,
+  NormalSummary,
+  SpecialSummary,
 };

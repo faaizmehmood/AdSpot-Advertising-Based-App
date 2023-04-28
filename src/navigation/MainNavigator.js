@@ -12,6 +12,10 @@ import {
   ClassicPkg,
   NormalPkg,
   SpecialPkg,
+  PremiumSummary,
+  ClassicSummary,
+  NormalSummary,
+  SpecialSummary,
 } from '../screens';
 
 const HomeStack = createStackNavigator();
@@ -26,11 +30,28 @@ const HomeStackNavigator = () => {
       <HomeStack.Screen name={routeNames.ClassicPkg} component={ClassicPkg} />
       <HomeStack.Screen name={routeNames.NormalPkg} component={NormalPkg} />
       <HomeStack.Screen name={routeNames.SpecialPkg} component={SpecialPkg} />
+      <HomeStack.Screen
+        name={routeNames.PremiumSummary}
+        component={PremiumSummary}
+      />
+      <HomeStack.Screen
+        name={routeNames.ClassicSummary}
+        component={ClassicSummary}
+      />
+      <HomeStack.Screen
+        name={routeNames.NormalSummary}
+        component={NormalSummary}
+      />
+      <HomeStack.Screen
+        name={routeNames.SpecialSummary}
+        component={SpecialSummary}
+      />
     </HomeStack.Navigator>
   );
 };
 
-const SettingStackNavigator = () => {
+const SettingStackNavigator = props => {
+  props.navigation.navigate(routeNames.SignUp);
   return (
     <SettingStack.Navigator screenOptions={defaultScreenOptions}>
       <SettingStack.Screen name={routeNames.Setting} component={Setting} />
