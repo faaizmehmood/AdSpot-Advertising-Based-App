@@ -116,10 +116,11 @@ const PremiumPkg = props => {
             <MaterialIcons
               name="category"
               size={35}
-              style={{color: '#fb246b', marginHorizontal: responsiveWidth(2)}}
+              style={{color: 'white', marginHorizontal: responsiveWidth(2)}}
             />
             <Text style={styles.homeText}>Premium Categories</Text>
           </View>
+
           <Text style={styles.DiscriptionText}>
             Select your Picture / Video and then Upload it
           </Text>
@@ -133,7 +134,7 @@ const PremiumPkg = props => {
             <Text style={styles.pkgText}>Duration: Per Hour </Text>
           </View>
           <TouchableOpacity
-            style={styles.pkgContainer}
+            style={styles.pkgSelectUploadContainer}
             onPress={uploadPic_VideoChoice}>
             <Text style={styles.pkgText}>Select Picture / Video</Text>
             <Selecticon
@@ -145,7 +146,7 @@ const PremiumPkg = props => {
             {/* {video !== null ? <Image source={{uri: video}} /> : null} */}
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.pkgContainer}
+            style={styles.pkgSelectUploadContainer}
             onPress={uploadFirebaseChoice}>
             <Text style={styles.pkgText}>Upload Picture / Video</Text>
             {loadingIndicator ? (
@@ -203,8 +204,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fb246b',
-    borderWidth: 2,
+    backgroundColor: 'rgba(192,85,181,255)',
+  },
+  pkgSelectUploadContainer: {
+    // width: '100%',
+    marginVertical: responsiveWidth(4),
+    marginHorizontal: responsiveWidth(2.8),
+    paddingHorizontal: responsiveWidth(2),
+    paddingVertical: responsiveHeight(1.8),
+    borderRadius: responsiveWidth(25),
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(117,84,123,255)',
   },
   nextContainer: {
     // width: '100%',
@@ -216,7 +228,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(117,84,123,255)',
   },
   parentView: {
     flexDirection: 'row',
@@ -232,7 +244,7 @@ const styles = StyleSheet.create({
   nextText: {
     fontFamily: 'Inter-Bold',
     fontSize: responsiveFontSize(2.5),
-    color: '#fb246b',
+    color: '#ffff',
   },
 });
 

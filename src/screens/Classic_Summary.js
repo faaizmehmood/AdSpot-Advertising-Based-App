@@ -154,12 +154,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fb246b',
+    backgroundColor: 'rgba(117,84,123,255)',
   },
   finishContainer: {
     // width: '100%',
     marginVertical: responsiveWidth(5),
-    marginTop: responsiveHeight(7),
+    // marginTop: responsiveHeight(7),
     marginHorizontal: responsiveWidth(2.8),
     paddingHorizontal: responsiveWidth(2),
     paddingVertical: responsiveHeight(1.8),
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fb246b',
+    backgroundColor: 'rgba(192,85,181,255)',
   },
   detailTextPre: {
     marginLeft: responsiveWidth(3),

@@ -201,6 +201,7 @@ const SignUp = () => {
         );
         firestore().collection('user').doc(userCred.user.uid).set({
           name,
+          email,
           phonenumber,
         });
         setLoggedIn(true);

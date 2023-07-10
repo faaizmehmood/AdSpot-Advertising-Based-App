@@ -24,4 +24,6 @@ export const routeNames = {
   SpecialPkg: 'SpecialPkg',
   SettingTab: 'SettingTab',
   Setting: 'Setting',
+  UserMakePackageFormPress: 'UserMakePackageFormPress',
+  ShowPackages: 'ShowPackages',
 };

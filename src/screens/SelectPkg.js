@@ -41,7 +41,10 @@ const SelectPkg = props => {
           <MaterialIcons
             name="category"
             size={35}
-            style={{color: '#fb246b', marginHorizontal: responsiveWidth(2)}}
+            style={{
+              color: '#fff',
+              marginHorizontal: responsiveWidth(2),
+            }}
           />
           <Text style={styles.homeText}>Package Categories</Text>
         </View>
@@ -49,7 +52,7 @@ const SelectPkg = props => {
           Select your Package to post your Ad
         </Text>
         <TouchableOpacity
-          style={styles.pkgContainer}
+          style={styles.pkgPremiumContainer}
           onPress={onPressPremiumPkg}>
           <Text style={styles.pkgText}>Premium Package</Text>
           <PackageIcon
@@ -59,7 +62,7 @@ const SelectPkg = props => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.pkgContainer}
+          style={styles.pkgClassicContainer}
           onPress={onPressClassicPkg}>
           <Text style={styles.pkgText}>Classic Package</Text>
           <PackageIcon
@@ -69,7 +72,7 @@ const SelectPkg = props => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.pkgContainer}
+          style={styles.pkgNormalContainer}
           onPress={onPressNormalPkg}>
           <Text style={styles.pkgText}>Normal Package</Text>
           <PackageIcon
@@ -79,7 +82,7 @@ const SelectPkg = props => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.pkgContainer}
+          style={styles.pkgSpecialContainer}
           onPress={onPressSpecialPkg}>
           <Text style={styles.pkgText}>Special Package</Text>
           <PackageIcon
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2),
     marginBottom: responsiveHeight(3.6),
   },
-  pkgContainer: {
+  pkgPremiumContainer: {
     // width: '100%',
     marginVertical: responsiveWidth(7),
     marginHorizontal: responsiveWidth(2.8),
@@ -123,9 +126,46 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fb246b',
-    borderWidth: 2,
-    borderColor: 'red',
+    // backgroundColor: '#fb246b',
+    backgroundColor: 'rgba(192,85,181,255)',
+  },
+  pkgSpecialContainer: {
+    // width: '100%',
+    marginVertical: responsiveWidth(7),
+    marginHorizontal: responsiveWidth(2.8),
+    paddingHorizontal: responsiveWidth(2),
+    paddingVertical: responsiveHeight(1.8),
+    borderRadius: responsiveWidth(25),
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#e6567b',
+  },
+  pkgNormalContainer: {
+    // width: '100%',
+    marginVertical: responsiveWidth(7),
+    marginHorizontal: responsiveWidth(2.8),
+    paddingHorizontal: responsiveWidth(2),
+    paddingVertical: responsiveHeight(1.8),
+    borderRadius: responsiveWidth(25),
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: '#fb246b',
+    backgroundColor: 'rgba(149,82,242,255)',
+  },
+  pkgClassicContainer: {
+    // width: '100%',
+    marginVertical: responsiveWidth(7),
+    marginHorizontal: responsiveWidth(2.8),
+    paddingHorizontal: responsiveWidth(2),
+    paddingVertical: responsiveHeight(1.8),
+    borderRadius: responsiveWidth(25),
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: '#fb246b',
+    backgroundColor: 'rgba(117,84,123,255)',
   },
   parentView: {
     flexDirection: 'row',

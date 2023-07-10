@@ -22,6 +22,12 @@ const Home = props => {
   const onGoToSelectPkgScreen = () => {
     props.navigation.navigate(routeNames.SelectPkg);
   };
+  const onGoToShowPkgScreen = () => {
+    props.navigation.navigate(routeNames.ShowPackages);
+  };
+  const onGoToCreatePkgScreen = () => {
+    props.navigation.navigate(routeNames.UserMakePackageFormPress);
+  };
   return (
     <SafeAreaView
       style={{
@@ -32,15 +38,6 @@ const Home = props => {
           source={images.splash_Full}
           style={styles.splash_Img_Edit}>
           <View>
-            {/* <View style={styles.searchContainer}>
-              <FeatherIcon
-                name="search"
-                size={21}
-                color="#9FA5C0"
-                style={styles.searchIcon}
-              />
-              <TextInput placeholder="Search" style={styles.searchTextInput} />
-            </View> */}
             <View style={styles.parentView}>
               <FontAwesomeIcon
                 name="home"
@@ -53,7 +50,7 @@ const Home = props => {
               Select your Choice to post your Ad
             </Text>
             <TouchableOpacity
-              style={styles.pkgContainer}
+              style={styles.pkgSelectContainer}
               onPress={onGoToSelectPkgScreen}>
               <FeatherIcon
                 name="package"
@@ -63,8 +60,18 @@ const Home = props => {
               <Text style={styles.pkgText}>Select Package</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              style={styles.pkgCreateContainer}
+              onPress={onGoToCreatePkgScreen}>
+              <FeatherIcon
+                name="package"
+                size={25}
+                style={{color: 'white', marginHorizontal: responsiveWidth(2)}}
+              />
+              <Text style={styles.pkgText}>Create Package</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.pkgContainer}
-              onPress={onGoToSelectPkgScreen}>
+              onPress={onGoToShowPkgScreen}>
               <FeatherIcon
                 name="package"
                 size={25}
@@ -98,7 +105,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fb246b',
+    backgroundColor: 'rgba(208,85,157,255)',
+  },
+  pkgCreateContainer: {
+    // width: '100%',
+    marginVertical: responsiveWidth(6),
+    marginHorizontal: responsiveWidth(2.8),
+    paddingHorizontal: responsiveWidth(2),
+    paddingVertical: responsiveHeight(1.8),
+    borderRadius: responsiveWidth(25),
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(117,84,123,255)',
+    alignItems: 'center',
+  },
+  pkgSelectContainer: {
+    // width: '100%',
+    marginVertical: responsiveWidth(6),
+    marginHorizontal: responsiveWidth(2.8),
+    paddingHorizontal: responsiveWidth(2),
+    paddingVertical: responsiveHeight(1.8),
+    borderRadius: responsiveWidth(25),
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(192,85,181,255)',
   },
   // searchContainer: {
   //   marginTop: responsiveHeight(5),
@@ -129,7 +160,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Medium',
     textAlign: 'center',
     fontSize: responsiveFontSize(2),
-    marginBottom: responsiveHeight(15),
+    marginBottom: responsiveHeight(8),
   },
   homeText: {
     color: 'white',

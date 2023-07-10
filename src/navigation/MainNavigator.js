@@ -16,6 +16,8 @@ import {
   ClassicSummary,
   NormalSummary,
   SpecialSummary,
+  UserMakePackageForm,
+  ShowPackages,
 } from '../screens';
 
 const HomeStack = createStackNavigator();
@@ -26,6 +28,14 @@ const HomeStackNavigator = () => {
     <HomeStack.Navigator screenOptions={defaultScreenOptions}>
       <HomeStack.Screen name={routeNames.Home} component={Home} />
       <HomeStack.Screen name={routeNames.SelectPkg} component={SelectPkg} />
+      <HomeStack.Screen
+        name={routeNames.UserMakePackageFormPress}
+        component={UserMakePackageForm}
+      />
+      <HomeStack.Screen
+        name={routeNames.ShowPackages}
+        component={ShowPackages}
+      />
       <HomeStack.Screen name={routeNames.PremiumPkg} component={PremiumPkg} />
       <HomeStack.Screen name={routeNames.ClassicPkg} component={ClassicPkg} />
       <HomeStack.Screen name={routeNames.NormalPkg} component={NormalPkg} />
@@ -50,8 +60,7 @@ const HomeStackNavigator = () => {
   );
 };
 
-const SettingStackNavigator = props => {
-  props.navigation.navigate(routeNames.SignUp);
+const SettingStackNavigator = () => {
   return (
     <SettingStack.Navigator screenOptions={defaultScreenOptions}>
       <SettingStack.Screen name={routeNames.Setting} component={Setting} />
@@ -81,7 +90,7 @@ const MainNavigator = () => {
           }
         },
         headerShown: false,
-        tabBarActiveTintColor: '#fc2469',
+        tabBarActiveTintColor: 'rgba(208,85,157,255)',
         tabBarInactiveTintColor: '#9FA5C0',
       })}>
       <BottomTabs.Screen
