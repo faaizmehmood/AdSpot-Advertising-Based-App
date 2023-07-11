@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   },
   buttoncontainer: {
     marginTop: responsiveHeight(5.5),
-    backgroundColor: '#fc2469',
+    backgroundColor: 'rgba(192,85,181,255)',
     borderRadius: responsiveWidth(25),
     width: responsiveWidth(90),
     height: responsiveWidth(14),

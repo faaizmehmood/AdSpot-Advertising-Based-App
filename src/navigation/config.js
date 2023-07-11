@@ -26,4 +26,5 @@ export const routeNames = {
   Setting: 'Setting',
   UserMakePackageFormPress: 'UserMakePackageFormPress',
   ShowPackages: 'ShowPackages',
+  ShowAllUsers: 'ShowAllUsers',
 };

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import {
   responsiveFontSize,
@@ -17,6 +18,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import FontIcon from 'react-native-vector-icons/Fontisto';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
 import {routeNames} from '../navigation/config';
@@ -33,6 +35,11 @@ const inputLabel = {
   password: 'password',
 };
 
+const adminModul = {
+  adminEmail: 'admin123@gmail.com',
+  adminPassword: 'adminadmin',
+};
+
 const SignIn = props => {
   const [email, setEmail] = React.useState('');
   const [isEmailValid, setIsEmailValid] = React.useState(true);
@@ -43,11 +50,58 @@ const SignIn = props => {
   const [passwordShown, setPasswordShown] = React.useState(true);
   const [inputFocus, setInputFocus] = React.useState('');
   const [loadingIndicator, setLoadingIndicator] = React.useState(false);
+  const [disabledLogin, setDisabledLogin] = React.useState(false);
 
   const {setLoggedIn} = useContext(AuthContext);
 
-  const onGoToSignUpScreen = () => {
+  const onGoToSignUpScreen = async () => {
     props.navigation.navigate(routeNames.SignUp);
+  };
+  const onGoToShowAllUsersScreen = async () => {
+    if (email.trim() === '') {
+      setIsEmailValid(false);
+      setErrorEmail('Email is empty.');
+    } else if (!emailRegex.test(email)) {
+      setIsEmailValid(false);
+      setErrorEmail('Email is invalid.');
+    } else if (password.trim() === '') {
+      setIsPasswordValid(false);
+      setErrorPassword('Password is empty.');
+    } else if (password.length < 8) {
+      setIsPasswordValid(false);
+      setErrorPassword('Password must be 8 characters long.');
+    } else if (
+      email === adminModul.adminEmail &&
+      password === adminModul.adminPassword
+    ) {
+      // setLoadingIndicator(true);
+      try {
+        await auth().signInWithEmailAndPassword(email, password);
+        // setLoadingIndicator(true);
+        setLoggedIn(false);
+        props.navigation.navigate(routeNames.ShowAllUsers);
+      } catch (err) {
+        if (err.code === 'auth/wrong-password') {
+          alert('The password is invalid');
+        }
+        if (err.code === 'auth/too-many-requests') {
+          alert(
+            'Access to this account has been temporarily disabled due to many failed login attempts',
+          );
+        }
+        if (err.code === 'auth/user-not-found') {
+          alert('There is no user record corresponding to this identifier.  ');
+        }
+        // setLoadingIndicator(false);
+        console.log(err);
+      }
+
+      console.log('Admin logged in');
+      // Add your navigation logic or further actions for admin login here
+    } else {
+      // Invalid credentials
+      Alert.alert('Error', 'Invalid email or password');
+    }
   };
 
   const onGotoPaswdRecovScreen = () => {
@@ -114,7 +168,13 @@ const SignIn = props => {
     } else if (password.length < 8) {
       setIsPasswordValid(false);
       setErrorPassword('Password must be 8 characters long.');
+    } else if (
+      email === adminModul.adminEmail &&
+      password === adminModul.adminPassword
+    ) {
+      setDisabledLogin(true);
     } else {
+      setDisabledLogin(false);
       setLoadingIndicator(true);
       try {
         await auth().signInWithEmailAndPassword(email, password);
@@ -223,6 +283,7 @@ const SignIn = props => {
                     ? styles.loginTextContainer
                     : styles.buttonContainer,
                 ]}
+                disabled={disabledLogin}
                 onPress={loginPressit}>
                 <Text
                   style={[
@@ -235,16 +296,15 @@ const SignIn = props => {
                 {loadingIndicator ? (
                   <ActivityIndicator
                     size={responsiveWidth(7)}
-                    color="#1FCC79"
-                    // color="white"
+                    color="rgba(192,85,181,255)"
                     style={styles.activityIndicatorStyle}
                   />
                 ) : null}
               </TouchableOpacity>
               <Text style={styles.betweenText}>Or Continue with</Text>
-              {/* <TouchableOpacity
+              <TouchableOpacity
                 style={[styles.buttonContainer, styles.googleTextContainer]}
-                onPress={onGoToSignUpScreen}>
+                onPress={onGoToShowAllUsersScreen}>
                 <MaterialIcon
                   style={styles.googleIcon}
                   name="admin-panel-settings"
@@ -252,7 +312,7 @@ const SignIn = props => {
                   color="white"
                 />
                 <Text style={styles.loginText}>Login as Admin</Text>
-              </TouchableOpacity> */}
+              </TouchableOpacity>
               <View style={styles.lastTextContainer}>
                 <Text style={styles.dontAccountText}>
                   Don't have any account?
@@ -352,10 +412,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fb246b',
+    backgroundColor: 'rgba(192,85,181,255)',
   },
   googleTextContainer: {
-    backgroundColor: '#484848',
+    backgroundColor: 'rgba(117,84,123,255)',
   },
   loginTextContainer: {
     width: '100%',
@@ -366,7 +426,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2.7,
-    borderColor: '#1FCC79',
+    borderColor: 'rgba(192,85,181,255)',
   },
   loginText: {
     fontFamily: 'Inter-Bold',
@@ -376,7 +436,7 @@ const styles = StyleSheet.create({
   disabledLoginText: {
     fontFamily: 'Inter-Bold',
     fontSize: responsiveFontSize(2.7),
-    color: '#1FCC79',
+    color: 'rgba(192,85,181,255)',
     paddingRight: responsiveWidth(1.5),
   },
   betweenText: {
@@ -401,7 +461,7 @@ const styles = StyleSheet.create({
   signUpText: {
     paddingTop: responsiveHeight(4),
     fontFamily: 'Inter-Medium',
-    color: '#fc2469',
+    color: '#e6567b',
   },
   errorTextEdit: {
     // color: '#fc2469',

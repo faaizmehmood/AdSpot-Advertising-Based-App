@@ -18,6 +18,7 @@ import NormalSummary from './Normal_Summary';
 import SpecialSummary from './Special_Summary';
 import UserMakePackageForm from './UserMakePackageForm';
 import ShowPackages from './ShowPackages';
+import ShowAllUsers from './ShowAllUsers';
 
 export {
   Splash,
@@ -40,4 +41,5 @@ export {
   SpecialSummary,
   UserMakePackageForm,
   ShowPackages,
+  ShowAllUsers,
 };

@@ -400,7 +400,7 @@ const SignUp = () => {
                 {loadingIndicator ? (
                   <ActivityIndicator
                     size={responsiveWidth(7)}
-                    color="#1FCC79"
+                    color="rgba(192,85,181,255)"
                     style={styles.activityIndicatorStyle}
                   />
                 ) : null}
@@ -513,7 +513,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fc2469',
+    backgroundColor: 'rgba(192,85,181,255)',
   },
   loginTextContainer: {
     width: '100%',
@@ -524,7 +524,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2.7,
-    borderColor: '#1FCC79',
+    borderColor: 'rgba(192,85,181,255)',
   },
   loginText: {
     fontFamily: 'Inter-Bold',
@@ -534,7 +534,7 @@ const styles = StyleSheet.create({
   disabledLoginText: {
     fontFamily: 'Inter-Bold',
     fontSize: responsiveFontSize(2.7),
-    color: '#1FCC79',
+    color: 'rgba(192,85,181,255)',
   },
   errorTextEdit: {
     color: 'red',

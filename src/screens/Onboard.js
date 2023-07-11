@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     marginTop: responsiveHeight(9),
-    backgroundColor: '#FC2469',
+    backgroundColor: 'rgba(192,85,181,255)',
     width: responsiveWidth(90),
     height: responsiveHeight(7),
     borderRadius: responsiveWidth(50) / 2,

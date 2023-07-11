@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     paddingVertical: responsiveHeight(2),
     marginHorizontal: responsiveWidth(5),
     alignItems: 'center',
-    backgroundColor: '#fc2469',
+    backgroundColor: 'rgba(192,85,181,255)',
   },
   LogoutText: {
     color: 'white',

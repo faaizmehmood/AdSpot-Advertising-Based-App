@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from 'react-native';
 import {
   responsiveFontSize,
@@ -17,8 +18,12 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {routeNames} from '../navigation/config';
 import {images} from '../assets/images';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 const Home = props => {
+  const [documentData, setDocumentData] = useState(null);
+
   const onGoToSelectPkgScreen = () => {
     props.navigation.navigate(routeNames.SelectPkg);
   };
@@ -28,6 +33,43 @@ const Home = props => {
   const onGoToCreatePkgScreen = () => {
     props.navigation.navigate(routeNames.UserMakePackageFormPress);
   };
+
+  const cancelPackageAlert = () => {
+    Alert.alert(
+      'Package Confirmation',
+      'Are you sure want to cancel your package.',
+      [
+        {
+          text: 'No',
+          onPress: () => {
+            Alert.alert('Your packege has not been cancelled!');
+          },
+        },
+        {
+          text: 'Yes',
+          onPress: () => {
+            deleteDocument();
+            Alert.alert('Your package has been cancelled .');
+          },
+        },
+      ],
+    );
+  };
+
+  const deleteDocument = async () => {
+    try {
+      const documentRef = firestore()
+        .collection('UserPackageInfo')
+        .doc(auth().currentUser.uid);
+      await documentRef.delete();
+
+      console.log('Document deleted successfully');
+      setDocumentData(null); // Clear the document data after deletion
+    } catch (error) {
+      console.log('Error deleting document:', error);
+    }
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -79,6 +121,16 @@ const Home = props => {
               />
               <Text style={styles.pkgText}>Show Package</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.pkgCancelContainer}
+              onPress={cancelPackageAlert}>
+              <FeatherIcon
+                name="package"
+                size={25}
+                style={{color: 'white', marginHorizontal: responsiveWidth(2)}}
+              />
+              <Text style={styles.pkgText}>Cancel Package</Text>
+            </TouchableOpacity>
           </View>
         </ImageBackground>
       </ScrollView>
@@ -106,6 +158,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(208,85,157,255)',
+  },
+  pkgCancelContainer: {
+    // width: '100%',
+    marginVertical: responsiveWidth(6),
+    marginHorizontal: responsiveWidth(2.8),
+    paddingHorizontal: responsiveWidth(2),
+    paddingVertical: responsiveHeight(1.8),
+    borderRadius: responsiveWidth(25),
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(149,82,242,255)',
   },
   pkgCreateContainer: {
     // width: '100%',

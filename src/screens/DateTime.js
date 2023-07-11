@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, Button} from 'react-native';
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 const FirestoreScreen = () => {
   const [documentData, setDocumentData] = useState(null);
@@ -30,20 +30,37 @@ const FirestoreScreen = () => {
     }
   };
 
+  const deleteDocument = async () => {
+    try {
+      const documentRef = firestore()
+        .collection('UserPackageInfo')
+        .doc(auth().currentUser.uid);
+      await documentRef.delete();
+
+      console.log('Document deleted successfully');
+      setDocumentData(null); // Clear the document data after deletion
+    } catch (error) {
+      console.log('Error deleting document:', error);
+    }
+  };
+
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       {documentData ? (
         <View>
-          <Text>Selected Data:</Text>
-          <Text>PackageName: {documentData.packageName}</Text>
-          <Text>Description: {documentData.description}</Text>
+          <Text>Document List:</Text>
+          <Text>Name: {documentData.packageName}</Text>
+          <Text>Email: {documentData.packagePrice}</Text>
+          <Text>Package Location: {documentData.location}</Text>
           {/* Add more Text components for other fields you want to display */}
         </View>
       ) : (
         <Text>Loading document...</Text>
       )}
 
-      <Button title="Fetch Document" onPress={fetchDocument} />
+      {documentData && (
+        <Button title="Delete Document" onPress={deleteDocument} />
+      )}
     </View>
   );
 };

@@ -17,39 +17,39 @@ import {
 import HistoryIcon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {routeNames} from '../navigation/config';
 import {images} from '../assets/images';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-const ShowPackages = props => {
-  const [documentData, setDocumentData] = useState(null);
+const ShowAllUsers = props => {
+  const [documentList, setDocumentList] = useState([]);
 
   useEffect(() => {
     fetchingPackages();
   }, []);
 
   const onGoToHomeScreen = () => {
-    props.navigation.navigate(routeNames.Home);
+    props.navigation.navigate(routeNames.SignIn);
   };
 
   const fetchingPackages = async () => {
     try {
-      const documentRef = firestore()
-        .collection('UserPackageInfo')
-        .doc(auth().currentUser.uid);
-      const documentSnapshot = await documentRef.get();
+      const collectionRef = firestore().collection('user');
+      const querySnapshot = await collectionRef.get();
 
-      if (documentSnapshot.exists) {
-        // Document exists, retrieve the data
-        const data = documentSnapshot.data();
-        setDocumentData(data);
-      } else {
-        // Document does not exist
-        console.log('Document does not exist');
-      }
+      const documents = [];
+      querySnapshot.forEach(documentSnapshot => {
+        if (documentSnapshot.exists) {
+          const data = documentSnapshot.data();
+          documents.push(data);
+        }
+      });
+
+      setDocumentList(documents);
     } catch (error) {
-      console.log('Error fetching document:', error);
+      console.log('Error fetching documents:', error);
     }
   };
   return (
@@ -63,66 +63,53 @@ const ShowPackages = props => {
           style={styles.splash_Img_Edit}>
           <View>
             <View style={styles.parentView}>
-              <HistoryIcon
-                name="history"
+              <FontAwesomeIcon
+                name="users"
                 size={35}
-                style={{color: 'white', marginHorizontal: responsiveWidth(2)}}
+                style={{
+                  color: 'white',
+                  marginHorizontal: responsiveWidth(2),
+                }}
               />
-              <Text style={styles.homeText}>Package Details</Text>
+              <Text style={styles.homeText}>User Details</Text>
             </View>
             <Text style={styles.DiscriptionText}>
               Package Details are as under here
             </Text>
-            {documentData ? (
+            {documentList.length > 0 ? (
               <View style={styles.detailContainer}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                  }}>
-                  <Text style={styles.detailText}>Package Name:</Text>
-                  <Text style={styles.detailTextPre}>
-                    {documentData.packageName}
-                  </Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.detailText}>Package Price:</Text>
-                  <Text style={styles.detailTextPre}>
-                    {documentData.packagePrice}
-                  </Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.detailText}>Package Start Time:</Text>
-                  <Text style={styles.detailTextPre}>
-                    {documentData.startTime}
-                  </Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.detailText}>Package End Time:</Text>
-                  <Text style={styles.detailTextPre}>
-                    {documentData.endTime}
-                  </Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.detailText}>Package Start Date:</Text>
-                  <Text style={styles.detailTextPre}>
-                    {documentData.startDate}
-                  </Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.detailText}>Package End Date:</Text>
-                  <Text style={styles.detailTextPre}>
-                    {documentData.endDate}
-                  </Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.detailText}>Package Location:</Text>
-                  <Text style={styles.detailTextPre}>
-                    {documentData.location}
-                  </Text>
-                </View>
+                {documentList.map((document, index) => (
+                  <View key={index} style={{width: '100%'}}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                      }}>
+                      <Text style={styles.detailText}>User Name:</Text>
+                      <Text style={styles.detailTextPre}>{document.name}</Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                      }}>
+                      <Text style={styles.detailText}>User Email:</Text>
+                      <Text style={styles.detailTextPre}>{document.email}</Text>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
+                      <Text style={styles.detailText}>User phone Number:</Text>
+                      <Text style={styles.detailTextPre}>
+                        {document.phonenumber}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
               </View>
             ) : (
-              <Text style={[styles.detailTextPre, {textAlign: 'center'}]}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  color: '#e6567b',
+                  marginLeft: responsiveWidth(3),
+                }}>
                 Loading document...
               </Text>
             )}
@@ -130,10 +117,10 @@ const ShowPackages = props => {
           <TouchableOpacity
             style={styles.pkgContainer}
             onPress={fetchingPackages}>
-            <Text style={styles.pkgText}>Show My Package</Text>
-            <MaterialCommunityIcon
-              name="package-down"
-              size={26}
+            <Text style={styles.pkgText}>Show All Users</Text>
+            <FontAwesomeIcon
+              name="user-plus"
+              size={23}
               color="white"
               style={styles.usericonStartEndButtonStyle}
             />
@@ -141,15 +128,14 @@ const ShowPackages = props => {
           <TouchableOpacity
             style={styles.nextContainer}
             onPress={onGoToHomeScreen}>
-            <Text style={styles.pkgText}>Next</Text>
+            <Text style={styles.pkgText}>Logout</Text>
             <MaterialIcon
-              name="navigate-next"
+              name="logout"
               size={30}
               color="white"
               style={styles.usericonStartNextButtonStyle}
             />
           </TouchableOpacity>
-          {/* </View> */}
         </ImageBackground>
       </ScrollView>
     </SafeAreaView>
@@ -170,7 +156,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   usericonStartNextButtonStyle: {
-    marginLeft: responsiveWidth(-1),
+    marginLeft: responsiveWidth(2),
     alignSelf: 'center',
   },
   detailContainer: {
@@ -181,7 +167,7 @@ const styles = StyleSheet.create({
   detailText: {
     fontFamily: 'Inter-Bold',
     fontSize: responsiveFontSize(2.3),
-    color: 'white',
+    color: '#e6567b',
   },
   pkgContainer: {
     width: '90%',
@@ -192,12 +178,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: '#fb246b',
     backgroundColor: 'rgba(117,84,123,255)',
   },
   nextContainer: {
     width: '45%',
-    marginVertical: responsiveWidth(30),
+    marginVertical: responsiveWidth(5),
     marginHorizontal: responsiveWidth(28),
     paddingVertical: responsiveHeight(1.5),
     borderRadius: responsiveWidth(25),
@@ -209,7 +194,8 @@ const styles = StyleSheet.create({
   },
   detailTextPre: {
     marginLeft: responsiveWidth(3),
-    color: '#fb246b',
+    color: 'white',
+
     fontSize: responsiveFontSize(2.5),
   },
   // searchContainer: {
@@ -232,7 +218,7 @@ const styles = StyleSheet.create({
   parentView: {
     flexDirection: 'row',
     // paddingTop: responsiveHeight(3),
-    marginTop: responsiveHeight(18),
+    marginTop: responsiveHeight(8),
     marginBottom: responsiveHeight(3),
     justifyContent: 'center',
   },
@@ -250,4 +236,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-export default ShowPackages;
+export default ShowAllUsers;

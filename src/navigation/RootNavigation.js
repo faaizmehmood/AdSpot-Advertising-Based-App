@@ -9,6 +9,7 @@ import {
   PasswordRecovery,
   Verification,
   NewPassword,
+  ShowAllUsers,
 } from '../screens';
 import {AuthContext} from '../context/AuthContext';
 import MainNavigator from './MainNavigator';
@@ -37,6 +38,10 @@ const RootNav = () => {
         <>
           <Stack.Screen name={routeNames.SignIn} component={SignIn} />
           <Stack.Screen name={routeNames.SignUp} component={SignUp} />
+          <Stack.Screen
+            name={routeNames.ShowAllUsers}
+            component={ShowAllUsers}
+          />
           <Stack.Screen
             name={routeNames.PasswordRecovery}
             component={PasswordRecovery}
